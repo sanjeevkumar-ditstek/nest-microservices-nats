@@ -7,10 +7,12 @@ import {
   ClientsModule,
   Transport,
 } from '@nestjs/microservices';
-
+import { MongooseModule } from '@nestjs/mongoose';
+import { User, UserSchema } from './entities/user.entity';
 @Module({
   imports: [
     ConfigModule.forRoot(),
+    MongooseModule.forRoot(process.env.MONGODB_URI),
     ClientsModule.register([
       {
         name: 'USER_SERVICE',
@@ -20,6 +22,7 @@ import {
         },
       },
     ]),
+    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
   ],
   controllers: [AppController],
   providers: [
