@@ -17,23 +17,25 @@ services:
     ports:
       - 3001:3001
     environment:
-      MONGODB_URI: mongodb://mongo_serv:27017
+      MONGODB_URI: ${MONGODB_URI}
       # NATS_URL: nats://nats:4222
+      NATS_URL: ${NATS_URL}
     depends_on:
       - mongo_serv
   bookstore_api:
     build: ./bookstore
-    environment:
-      MONGODB_URI: mongodb://mongo_serv:27017
-      NATS_URL: nats://nats:4222
+    # environment:
+      # MONGODB_URI: ${MONGODB_URI}
+      # NATS_URL: nats://nats:4222
+      # NATS_URL: ${NATS_URL}
     depends_on:
       - mongo_serv
       - gateway
   user_api:
     build: ./user
     environment:
-      MONGODB_URI: mongodb://mongo_serv:27017
-      NATS_URL: nats://nats:4222
+      MONGODB_URI: ${MONGODB_URI}
+      NATS_URL: ${NATS_URL}
     depends_on:
       - mongo_serv
       - gateway
